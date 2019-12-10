@@ -28,14 +28,6 @@ args = parser.parse_args()
 
 _brand = args.brand
 
-def CheckConnection():
-    try:
-        urllib.request.urlopen('https://cirt.net/')
-    except:
-        print('\033[1;31m[^] \033 No internet connection ...Please connect to the Internet')
-    else:
-        print('\033[1;32m[^] Checking Internet connection... \033[1;m')
-
 def FormatTable(table):
     text=''
     rows=table.find_all('tr')
@@ -65,8 +57,6 @@ def VendorSearch(_brand):
 
 def main():
     print(OversightBanner())
-
-    CheckConnection()
     print("")
     try:
         if _brand != " ":
