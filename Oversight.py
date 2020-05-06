@@ -5,28 +5,24 @@ import os, sys, ssl, io, argparse
 import urllib.request
 import bs4 as bs
 
-def OversightBanner():
-    logo = '''\033[1;31m
-   ____                  _____ _       __    __
-  / __ \_   _____  _____/ ___/(_)___ _/ /_  / /_
- / / / / | / / _ \/ ___/\__ \/ / __ `/ __ \/ __/
-/ /_/ /| |/ /  __/ /   ___/ / / /_/ / / / / /_
-\____/ |___/\___/_/   /____/_/\__, /_/ /_/\__/
-                             /____/
-***523 vendors, 2084 passwords***
+class oversight:
+    def __init__(self, brand):
+        self.brand = brand 
+        print("Hope this works")
 
-Simple tool that was made to search default credentials for routers,
-network devices, web applications and more. Useful for the OSCP.
-
- \033[1;32m'''
-    return logo
-
-parser = argparse.ArgumentParser()
-parser.add_argument('-b', help='Brand of device to check', dest='brand')
-
-args = parser.parse_args()
-
-_brand = args.brand
+    def OversightBanner(self):
+        logo = '''\033[1;31m
+    ____                  _____ _       __    __
+    / __ \_   _____  _____/ ___/(_)___ _/ /_  / /_
+    / / / / | / / _ \/ ___/\__ \/ / __ `/ __ \/ __/
+    / /_/ /| |/ /  __/ /   ___/ / / /_/ / / / / /_
+    \____/ |___/\___/_/   /____/_/\__, /_/ /_/\__/
+                                /____/
+    ***523 vendors, 2084 passwords***
+    Simple tool that was made to search default credentials for routers,
+    network devices, web applications and more. Useful for the OSCP.
+    \033[1;32m'''
+        return logo
 
 def FormatTable(table):
     text=''
@@ -39,9 +35,9 @@ def FormatTable(table):
 
     return text
 
-def VendorSearch(_brand):
+def VendorSearch(brand):
 
-    vendor = _brand
+    vendor = brand
     urlenc = urllib.parse.quote(vendor)
     url = "https://cirt.net/passwords?criteria=" + urlenc
     vrequest = urllib.request.Request(url)
@@ -56,11 +52,19 @@ def VendorSearch(_brand):
     print('\033[1;31m---------------------------')
 
 def main():
-    print(OversightBanner())
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-b', help='Brand of device to check', dest='brand')
+
+    args = parser.parse_args()
+    brand = args.brand
+    Oversight = oversight(brand)
+    print(Oversight.OversightBanner())
     print("")
+    
     try:
-        if _brand != " ":
-            VendorSearch(_brand)
+        if brand != " ":
+            VendorSearch(brand)
         else:
             pass  
 
