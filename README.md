@@ -10,7 +10,7 @@ based on the brand of the device. It has more than 500 brands accounted for.
 
 `pip3 install -r requirements.txt`
 
-`python3 SILVERDUMP -b Cisco
+`python3 SILVERDUMP -b Cisco`
 
 
 # Example
